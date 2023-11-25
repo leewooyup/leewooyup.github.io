@@ -1,0 +1,78 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>Gaejireung-e</title>
+  <subtitle>🪱Fragile</subtitle>
+  <updated>2023-11-25T16:29:25+09:00</updated>
+  <author>
+    <name>개발무지렁이</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <rights> © 2023 개발무지렁이 </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>[Dev-Essentials] 동일 출처 정책으로부터 예외를 허용하기 위한 CORS</title>
+    <link href="http://localhost:4000/posts/cors/" rel="alternate" type="text/html" title="[Dev-Essentials] 동일 출처 정책으로부터 예외를 허용하기 위한 CORS" />
+    <published>2023-11-25T16:16:00+09:00</published>
+  
+    <updated>2023-11-25T16:16:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/cors/</id>
+    <content src="http://localhost:4000/posts/cors/" />
+    <author>
+      <name>개발무지렁이</name>
+    </author>
+
+  
+    
+    <category term="Dev-Essentials" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      SOP, 동일 출처 정책
+
+
+    🪱 Same-Origin Policy
+
+
+동일한 출처(Same-Origin)에서만 리소스를 공유할 수 있는 것을 말한다.
+즉, 다른 출처(Cross-Origin) 서버에 있는 리소스와는 상호작용이 불가능하다.
+ 
+
+⚠️ 브라우저에 구현된 스펙으로, 출처 비교와 차단은 브라우저에서 한다.
+⚠️ 클라이언트단에 API요청이 아닌, 서버단 API 요청은 CORS로부터 자유롭다. 
+ 
+
+
+  ❓ 동일한 출처란
+  Protocol + Host + Port 가 같으면 동일한 출처로 본다.
+
+
+🎯 CSRF (Cross-Site Request Forgery), XSS (Cross-Site Scripting) 공격으로 부터 방지
+
+  CSRF: 사이트 간 요청 위조, 이미 인증된 사용...
+    </summary>
+  
+
+  </entry>
+
+</feed>
+
+

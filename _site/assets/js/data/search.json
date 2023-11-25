@@ -1,0 +1,21 @@
+[
+  
+  {
+    "title": "[Dev-Essentials] 동일 출처 정책으로부터 예외를 허용하기 위한 CORS",
+    "url": "/posts/cors/",
+    "categories": "Dev-Essentials",
+    "tags": "sop,, cors,, origin,, csrf,, xss",
+    "date": "2023-11-25 16:16:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "SOP, 동일 출처 정책    🪱 Same-Origin Policy동일한 출처(Same-Origin)에서만 리소스를 공유할 수 있는 것을 말한다.즉, 다른 출처(Cross-Origin) 서버에 있는 리소스와는 상호작용이 불가능하다. ⚠️ 브라우저에 구현된 스펙으로, 출처 비교와 차단은 브라우저에서 한다.⚠️ 클라이언트단에 API요청이 아닌, 서버단 A...",
+    "content": "SOP, 동일 출처 정책    🪱 Same-Origin Policy동일한 출처(Same-Origin)에서만 리소스를 공유할 수 있는 것을 말한다.즉, 다른 출처(Cross-Origin) 서버에 있는 리소스와는 상호작용이 불가능하다. ⚠️ 브라우저에 구현된 스펙으로, 출처 비교와 차단은 브라우저에서 한다.⚠️ 클라이언트단에 API요청이 아닌, 서버단 API 요청은 CORS로부터 자유롭다.    ❓ 동일한 출처란  Protocol + Host + Port 가 같으면 동일한 출처로 본다.🎯 CSRF (Cross-Site Request Forgery), XSS (Cross-Site Scripting) 공격으로 부터 방지  CSRF: 사이트 간 요청 위조, 이미 인증된 사용자가 해커의 의도된 공격을 수행하도록 유도하여 공격하는 행위  XSS: 교차 사이트 스크립팅, 사용자의 입력에 해커의 악의적인 스크립트 코드를 삽입하여 공격하는 행위 CORS, 교차 출처 리소스 공유 정책    🪱 Cross-Origin Resource Sharing동일 출처가 아니더라도 CORS 정책을 따르는 요청이라면,다른 출처의 리소스라도 공유를 허용해준다는 것을 말한다. HTTP 요청 헤더의 Origin이라는 필드에 클라이언트 출처를 넣어 보낸다.서버는 응답 헤더의 Access-Control-Allow-Origin이라는 필드에 허용할 수 있는 출처를 넣어 보낸다.브라우저는 응답을 받아 비교해본 후, 자신의 출처가 없다면 CORS 에러를 띄운다. 📕 결국, 서버에서 허용할 출처의 목록을 기재해서 의도된 교차 출처만을 허용할 수 있다.    🪱 CORS 3단계 작동방식  1️⃣ 예비요청_Preflight Request  브라우저는 요청을 보낼 때, 바로 보내지 않고먼저 예비요청을 보내보고, 서버와 잘 통신되는지 확인한 후에 본요청(xhr)을 보낸다.⚠️ OPTIONS라는 HTTP method를 사용해서 예비요청이 보내진다.⚠️ 이때, 요청의 헤더에는 Origin, Access-Control-Request-Headers, Access-Control-Request-Method라는 필드가 들어있다.      ✅ 응답          Access-Control-Allow-Origin      Access-Control-Allow-Headers      Access-Control-Allow-Methods      Access-Control-Max-Age (헤더에 캐시될 시간, 이 시간동안은 캐시된 응답을 사용)        2️⃣ 인증된 요청_Credentialed Request  자격인증정보(Credential)를 실어 요청을 보내는 방식을 말한다.⚠️ withCredentials 옵션을 true로 설정하면 요청에 인증 관련 정보를 보낼 수 있다.⚠️ 이때, 요청의 헤더에는 Origin 필드가 들어있다.      ✅ 응답          Access-Control-Allow-Origin      Access-Control-Allow-Credientials: true            🚫 경고          자격인증정보(Credential)을 실어보내는 요청에 응답해주려면 Access-Control-Allow-Origin필드값은 와일드카드(*)가 아닌 분명한 출처(Origin)가 설정되어야한다.      Access-Control-Allow-Credentials는 반드시 true로 설정되어야 한다.(그렇지 않으면, CORS 정책에 의해 응답이 거부된다.)        3️⃣ 단순 요청_Simple Request  예비요청을 생략하고, 서버에 바로 본요청을 보낸 후,CORS 정책 위반 여부를 검사하는 방식을 말한다."
+  }
+  
+]
+
