@@ -72,7 +72,7 @@ theme_mode: light # [light|dark]
 img_cdn: 
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://i.esdrop.com/d/f/OAHra5CzfD/KoilpkZ64T.png
+avatar: https://i.esdrop.com/d/f/OAHra5CzfD/4D0LfzXWng.png
 
 # boolean type, the global switch for TOC in posts.
 toc: true
