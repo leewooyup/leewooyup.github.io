@@ -32,6 +32,7 @@ tags:
   overflow: hidden; /* 요소의 내용이 요소의 영역을 벗어날 때, 벗어난 내용 숨김 */
   border-right: 10px solid black; /* 마우스 커서 역할 */
   animation: type-text forwards 3s, cursor-blink 1s infinite;
+  /* @keyframes type-text, @keyframes cursor-blink가 정의되어 있어야 한다 (특정 시점 스타일에 대한 규칙 정의) */
   /* forwards 애니매이션이 완료된 후 최종 상태를 유지 */
   animation-timing-function: steps(40);
   /* 애니메이션을 40단계로 나누고, 각 프레임 간 전환이 갑자기 일어남, 끊기는 듯이 진행되므로, 타이핑 치는 역할 */
