@@ -37,11 +37,12 @@ body {
   // font-family: $font-family-base;
   @font-face {
     font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+      format('woff');
     font-weight: normal;
     font-style: normal;
   }
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
 }
 
 /* --- Typography --- */
@@ -749,26 +750,36 @@ $btn-mb: 0.5rem;
     width: 100%;
   }
 
+  @font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2')
+      format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   .site-title {
     font-family: inherit;
-    font-weight: 900;
-    font-size: 1.75rem;
+    font-weight: 800;
+    font-size: 1.35rem;
     line-height: 1.2;
     letter-spacing: 0.25px;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
-
     a {
       @extend %clickable-transition;
       @extend %sidebar-link-hover;
 
-      color: var(--site-title-color);
+      // color: var(--site-title-color);
+      color: #fffaf0;
     }
   }
 
   .site-subtitle {
+    font-family: 'omyu_pretty';
     font-size: 95%;
-    color: var(--site-subtitle-color);
+    // color: var(--site-subtitle-color);
+    color: #fffaf0;
     margin-top: 0.25rem;
     word-spacing: 1px;
     -webkit-user-select: none;
@@ -781,6 +792,7 @@ $btn-mb: 0.5rem;
     margin-bottom: 2rem;
 
     li.nav-item {
+      font-family: 'omyu_pretty';
       opacity: 0.9;
       width: 100%;
       padding-left: 1.5rem;
@@ -802,11 +814,13 @@ $btn-mb: 0.5rem;
           font-size: 95%;
           opacity: 0.8;
           margin-right: 1.5rem;
+          color: #fffaf0;
         }
 
         span {
           font-size: 90%;
           letter-spacing: 0.2px;
+          color: #fffaf0;
         }
       }
 
