@@ -17,7 +17,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: 개발 무지렁이🪱 # the main title
+title: 개발 주머니쥐🐁 # the main title
 
 tagline: Blog to quickly recall while contemplating WEB_PROGRAMMING. # it will display as the sub-title
 
@@ -76,7 +76,8 @@ theme_mode: # [light|dark]
 img_cdn: "https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: "https://i.esdrop.com/d/f/OAHra5CzfD/ohbpoSOrEV.png"
+avatar: "https://i.esdrop.com/d/f/OAHra5CzfD/JyzYCR1h9S.jpg"
+# https://i.esdrop.com/d/f/OAHra5CzfD/ohbpoSOrEV.png
 
 # boolean type, the global switch for TOC in posts.
 toc: true
