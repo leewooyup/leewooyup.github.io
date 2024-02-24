@@ -1,6 +1,13 @@
 /*
   The common styles
 */
+@font-face {
+  font-family: 'omyu_pretty';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 html {
   @media (prefers-color-scheme: light) {
@@ -35,14 +42,22 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   // font-family: $font-family-base;
+  // @font-face {
+  //   font-family: 'GmarketSansMedium';
+  //   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+  //     format('woff');
+  //   font-weight: normal;
+  //   font-style: normal;
+  // }
+  // font-family: 'GmarketSansMedium';
   @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
-      format('woff');
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2')
+      format('woff2');
     font-weight: normal;
     font-style: normal;
   }
-  font-family: 'GmarketSansMedium';
+  font-family: 'omyu_pretty';
 }
 
 /* --- Typography --- */
@@ -405,11 +420,14 @@ main {
   }
 }
 
+article p {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
+}
+
 .content {
-  font-size: 1.08rem;
   margin-top: 2rem;
   overflow-wrap: break-word;
-
   a {
     &.popup {
       @extend %no-cursor;

@@ -1,56 +1,56 @@
 ---
-title: "[Spring] 객체 지향 프로그래밍의 핵심인 다형성과 이를 위한 프레임워크 스프링"
+title: "[Spring] 객체 지향 프로그래밍의 핵심인 다형성과 이를 위한 프레임워크, 스프링"
 date: 2024-01-01 16:52 +0900
-lastmod: 2024-01-01 16:52 +0900
+lastmod: 2024-02-24 19:46 +0900
 categories: Spring
-tages: 객체지향설계 다형성 인터페이스 구현객체 AppConfig 의존관계주입 OCP DIP 스프링
+tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 ---
 
 ## 객체 지향 프로그래밍이란
 
-##### **(🐙추상화, 💊캡슐화, 🪆상속, 🦠다형성)**
+`🧠Abstraction`&emsp;`💊Encapsulation`&emsp;`🪆Inheritance`&emsp;`🦠Polymorphism`
 
-<div style="margin-bottom: 15px;font-size:15px;background-color:#FFD24D;color:black;font-weight:bolder;border-top-left-radius:5px;border-top-right-radius:5px;padding:7px;">
+<div style="margin-bottom: 15px;font-size:20px;background-color:#FFD24D;color:black;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
     🐀 객체 지향의 핵심(core)은 다형성(Polymorphism)이다
 </div>
 
 애플리케이션을 **객체들의 모임**으로 파악하자  
 각각의 객체는 메세지를 주고 받고 데이터를 처리할 수 있다.  
-이러한 객체를 부품으로 보고,  
-🎯 부품을 쉽게 갈아 끼울 수 있게 만드는 것이 **객체 지향의 핵심**이자, <span style='color:rgb(196,58,26);font-weight:bold'>다형성</span>이다.
+각각의 객체를 부품으로 보고,  
+🎯 부품을 <span style='color:rgb(196,58,26);font-weight:bold'>쉽게 갈아 끼울 수 있게</span> 만드는 것이 **객체 지향의 핵심**이자, <span style='color:rgb(196,58,26);font-weight:bold'>다형성</span>이다.
 
 ## 다형성(Polymorphism)
 
-<div style="margin-bottom:15px;font-size:15px;background-color:rgb(35,43,47);color:white;font-weight:bolder;border-top-left-radius:5px;border-top-right-radius:5px;padding:7px;">
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(35,43,47);color:white;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
     🐁 규격과 규격에 맞게 제작된 부품
 </div>
 
-'다형성'은 쉽게 갈아 끼울 수 있게 만드는 것이고,  
-그렇게 만드려면 <span style="margin-bottom:15px;font-size:15px;background-color:#C197D2;font-weight:bold;">규격(인터페이스)</span>가 필요하다.
+다형성은 **쉽게 갈아 끼울 수 있게 만드는 것**이고,  
+그렇게 만드려면 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">규격(인터페이스)</span>가 필요하다.
 
 > 규격에 맞게 제작되면 갈아 끼워도 다른 것에 영향을 주지 않는다.
 
-<span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">'다른 것에 영향을 주지 않는다'</span>는 것은 내가 변화가 있을 때,  
+<span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#BCD4E6;">다른 것에 영향을 주지 않는다</span>는 것은 내가 변화가 있을 때,  
 그에 따른 **다른 것을 변경할 필요가 없는 것**을 말한다.  
-이런 관계를 만드는 것을 '<span style='color:rgb(196,58,26);font-weight:bold'>확장 가능한 설계</span>'라고 하며,  
+이런 관계를 만드는 것을 <span style='color:rgb(196,58,26);font-weight:bold'>확장 가능한 설계</span>라고 하며,  
 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>결국 규격(인터페이스)를 안정적으로 설계하는 것이 중요하다.
 
-규격을 <span style="margin-bottom:15px;font-size:15px;background-color:#C197D2;font-weight:bold;">인터페이스</span>라 보고,  
-규격에 맞게 제작된 부품을 <span style="margin-bottom:15px;font-size:15px;background-color:#C197D2;font-weight:bold;">구현 객체</span>로 본다.
+규격을 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">인터페이스</span>라 보고,  
+규격에 맞게 제작된 부품을 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">구현 객체</span>로 본다.
 
 혼자 있는 부품은 의미가 없듯이, **혼자 있는 객체만으로는 의미가 없다.**  
-객체(클라이언트)와 객체(서버)는 '<span style='color:rgb(196,58,26);font-weight:bold'>협력 관계</span>'를 가진다.  
-객체(클라이언트)에 <span style="margin-bottom:15px;font-size:15px;background-color:#ffdce0;font-weight:bold;">영향을 주지 않고 객체(서버)의 기능을 변경할 수 있게 만드는 것</span>을  
+객체(클라이언트)와 객체(서버)는 <span style='color:rgb(196,58,26);font-weight:bold'>협력 관계</span>를 가진다.  
+이 협력관계에서, 객체(클라이언트)에 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">영향을 주지 않고 객체(서버)의 기능을 변경할 수 있게 만드는 것</span>을  
 🦠<span style='color:rgb(196,58,26);font-weight:bold'>다형성</span>이라 한다.
 
-이렇게 하면, 인터페이스를 구현한 객체를 **실행 시점에서 유연하게 변경할 수 있다.**  
-또한, 객체(클라이언트)는 객체(서버)의 내부 구조를 몰라도 되니까 **단순해진다.**  
-즉, **객체끼리의 협력관계**는 <span style='color:rgb(196,58,26);font-weight:bold'>**</span>서로 규격(인터페이스)만을 알고 있다는 의미이고,  
-이를 통해 <span style='color:rgb(196,58,26);font-weight:bold'>**</span>의존적이지 않은 코드를 짤 수 있다는 뜻이다.
+이렇게 하면, 구현객체를 **실행 시점에서 유연하게 변경할 수 있다.**  
+또한, 객체(클라이언트)는 객체(서버)의 내부 구조를 몰라도 되니까 단순해진다.  
+즉, **객체끼리의 협력관계**는 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>서로 규격(인터페이스)만을 알고 있다는 의미이고,  
+이를 통해 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>의존적이지 않은 코드를 짤 수 있다는 뜻이다.
 
-<span style="margin-bottom:15px;font-size:15px;background-color:#ffff9e;color:#624a3d;font-weight:bold;">🦁 ~에 의존한다 == ~를 알고있다</span>
+<span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">🦁 ~에 의존한다 == ~를 알고있다</span>
 
-<div style="margin-bottom:15px;font-size:15px;background-color:rgb(35,43,47);color:white;font-weight:bolder;border-top-left-radius:5px;border-top-right-radius:5px;padding:7px;">🐁 좋은 객체 지향 설계의 5가지 원칙 (SOLID)</div>
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(35,43,47);color:white;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">🐁 좋은 객체 지향 설계의 5가지 원칙 (SOLID)</div>
 
 - <span style='background-color:#EEEEEE;font-weight:bold'>SRP (Single Responsibility Principle): 단일 책임 원칙</span>
 
@@ -392,18 +392,63 @@ public class 오리App {
 }
 ```
 
-<span style="margin-bottom:15px;font-size:15px;background-color:#E1FEE5;font-weight:bold;">🫎 '오리공장(AppConfig)'는 실제 동작에 필요한 구현 객체를 생성하고 연결하는 책임을 가지는 설정 클래스다.</span>  
-이렇게 **관심사를 명확히 분리**하고,  
-생성자를 통해 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>**외부에서 객체를 주입해주는 책임**만을 가진 설정 클래스가 있기 때문에,  
-오리ServiceImpl은 <span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">추상화에만 의존</span>할 수 있고, 이는 <span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">DIP</span>를 지킬 수 있게 만든다.
+<span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#E1FEE5;">'오리공장(AppConfig)'는 실제 동작에 필요한 구현 객체를 생성하고 연결하는 책임을 가지는 설정 클래스다.</span>  
+이렇게 <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#ffdce0;">관심사를 명확히 분리</span>하고,  
+생성자를 통해 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>외부에서 객체를 주입해주는 책임만을 가진 설정 클래스가 있기 때문에,  
+오리ServiceImpl은 <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">추상화에만 의존</span>할 수 있고, 이는 <span style='color:rgb(196,58,26);font-weight:bold'>DIP</span>를 지킬 수 있게 만든다.
 
-또한, 오리의 <span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">비행 또는 헤엄 아이템을 확장</span>하기 위해서, 오리공장(AppConfig)만 바꿔주면 되고,  
-오리ServiceImpl<span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">(객체, 클라이언트)은 변경하지 않아도 된다.</span> 이는 <span style="margin-bottom:15px;font-size:15px;background-color:#BCD4E6;font-weight:bold;">OCP</span>를 지킬 수 있게 만든다.
+또한, 오리의 비행 또는 헤엄 아이템을 확장하기 위해서, <span style="margin-bottom:15px;border-radius:5px;background-color:rgba(193,151,210,0.7);">오리공장(AppConfig)만 바꿔주면 되고</span>,  
+오리ServiceImpl<span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">(객체, 클라이언트)은 변경하지 않아도 된다.</span> 이는 <span style='color:rgb(196,58,26);font-weight:bold'>OCP</span>를 지킬 수 있게 만든다.
 
-이러한 방식으로, <span style="margin-bottom:15px;font-size:15px;background-color:#ffdce0;font-weight:bold;">다형성을 극대화하고 OCP, DIP를 지켜지도록</span> 만들어 주는 프레임워크가  
-<span style="margin-bottom:15px;font-size:15px;background-color:#ffdce0;font-weight:bold;">'스프링(Spring)'</span>이다.  
-스프링은 <span style='color:rgb(196,58,26);font-weight:bold'>_</span>DI와 <span style='color:rgb(196,58,26);font-weight:bold'>_</span>IoC 컨테이너를 제공함으로써 의존관계를 외부에서 주입해  
-<span style="margin-bottom:15px;font-size:15px;background-color:#ffdce0;font-weight:bold;">🦠다형성 + OCP + DIP</span>를 지키는 코드를 짜도록 유도한다.
+이러한 방식으로, <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#E1FEE5;">다형성을 극대화하고 OCP, DIP를 지켜지도록</span> 만들어 주는 프레임워크가  
+<span style='color:rgb(196,58,26);font-weight:bold'>스프링(Spring)</span>이다.  
+스프링은 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>DI와 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>IoC 컨테이너를 제공함으로써 **의존관계를 외부에서 주입**해  
+<span style="margin-bottom:15px;border-radius:5px;background-color:#ffdce0;">다형성 + OCP + DIP</span>를 지키는 코드를 짜도록 유도한다.
 
 > 스프링이란 객체(클라이언트)의 코드 변경없이 구현 객체를 갈아 끼우는 방식으로  
 > 기능을 확장시켜 개발하게 도와주는 프레임워크이다.
+
+![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/QBH5VYCQs0.png "Optional title"){: width="500" height="300"}
+
+## 외부에서 객체를 주입해주는 책임을 가진 설정 클래스, Spring Container
+
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(196,58,26);color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
+    🍪 Spring Container
+</div>
+
+설정정보를 바탕으로 <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">객체를 생성</span>하고, <span style="margin-bottom:15px;padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);"> (⚠️ Spring Container가 관리하는 객체를 Bean이라 한다.)</span>  
+생성된 객체를 내부에 담아 <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">라이프사이클 관리</span> 및 <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">의존성 주입을 담당</span>하는 **컴포넌트**를 말한다.
+
+🎯 객체를 낭비하지 않는다.
+
+Spring Container는 크게 두가지 유형으로 나뉜다.
+
+- BeanFactory
+  : <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#ffdce0;">Bean객체를 생성하고 제공</span>하는 역할을 한다.  
+  : 생성된 Bean 객체는 Application 내에서 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>공유되어 재사용된다 **(Singleton Scope)**.  
+  : 또한, 실제로 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>필요한 시점에서 초기화되고 **(Lazy Initialization)**.  
+  : 객체 간 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>의존성을 자동으로 처리한다 **(Dependency Injection)**.  
+  : BeanFactory를 통해 객체를 생성하고 연결하는 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>책임(관심사)을 분리하여 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>모듈화할 수 있다 **(Aspect-Oriented Programming)**.
+
+<div style="margin-bottom:15px;margin-left:40px;font-size:16px;background-color:rgba(0,0,0,0.03);border-radius:5px;padding:2px;"><span style="font-weight:bold;">📕 Bean 객체를 Singleton으로 만드는 이유</span><br>
+: 매번 클라이언트에서 요청이 올 때마다 서버에서 해당 로직을 맡은 객체를 새로 만든다고 가정했을 때,<br>
+누적되면 자원소모가 크다. (설사 Garbage Collection이 있다하더라도)<br>
+⚠️ Singleton 개념은 객체 생성 측면에서 자원소모를 효율적으로 하기 위한 디자인패턴이다.
+</div>
+  
+- ApplicationContext  
+: ApplicationContext는 <span style='color:rgb(196,58,26);font-weight:bold'>BeanFactory를 구현</span>하고 있어 <span style="margin-bottom:15px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">BeanFactory의 확장된 버전</span>이다.  
+: **확장된 기능**  
+: `🍕 Environment`: 소스 설정 및 프로퍼티 값을 가져올 수 있다
+: `🍕 MessageSource`: 메세지 설정파일을 모아, 로컬라이징을 통한 맞춤 메세지 제공
+
+## Spring의 설계 철학
+
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(35,43,47);color:white;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
+    🐁 Spring Framework에 종속되지 않고 POJO 객체를 사용하여 애플리케이션을 개발할 수 있게 하는 것 
+</div>
+
+> 🍍 POJO (Plain-Old Java Object)  
+> 특별한 제약이나 규칙을 따르지 않는 평범한 자바객체를 가리킨다.  
+> Spring Framework는 Spring에 특화된 클래스를 요구하지 않으며,  
+> 의존성 주입을 통해 POJO 객체를 연결할 수 있는 강력한 매커니즘을 제공한다.
