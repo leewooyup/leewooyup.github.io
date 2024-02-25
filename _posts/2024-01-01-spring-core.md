@@ -410,6 +410,8 @@ public class 오리App {
 
 ![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/QBH5VYCQs0.png "Optional title"){: width="500" height="300"}
 
+`org.springframework:spring-core`
+
 ## 외부에서 객체를 주입해주는 책임을 가진 설정 클래스, Spring Container
 
 <div style="margin-bottom:15px;font-size:20px;background-color:rgb(196,58,26);color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
@@ -441,6 +443,12 @@ Spring Container는 크게 두가지 유형으로 나뉜다.
 : **확장된 기능**  
 : `🍕 Environment`: 소스 설정 및 프로퍼티 값을 가져올 수 있다
 : `🍕 MessageSource`: 메세지 설정파일을 모아, 로컬라이징을 통한 맞춤 메세지 제공
+
+![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/EskS7rVcg8.png "Optional title"){: width="500" height="300"}
+
+- `ClassPathXmlApplicationContext`: ClassPath에 지정한 경로에서 xml파일을 읽어 context 정의내용을 load
+- `FileSystemXmlApplicationContext`: FileSystem에 지정한 경로에서 xml 파일을 읽어 context 정의내용을 load
+- `XmlWebApplicationContext`: Web Application에 포함된 xml파일에서 context 정의내용을 load
 
 ## Spring의 설계 철학
 
