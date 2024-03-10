@@ -1,7 +1,7 @@
 ---
 title: "[Spring] 객체 지향 프로그래밍의 핵심인 다형성과 이를 위한 프레임워크, 스프링"
 date: 2024-01-01 16:52 +0900
-lastmod: 2024-02-24 19:46 +0900
+lastmod: 2024-03-10 20:24 +0900
 categories: Spring
 tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 ---
@@ -87,6 +87,10 @@ tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
   > > 객체(클라이언트)는 구현 객체는 몰라야한다.
 
 ⚠️ <span style='color:rgb(196,58,26);font-weight:bold'>🦠다형성만으로는 OCP, DIP를 지킬 수 없다.</span>
+
+## 동작에 필요한 객체를 생성하고 연결하는 AppConfig
+
+![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/HYLiwFTwia.png "Optional title"){: width="800" height="350"}
 
 `오리.java`
 
@@ -438,17 +442,107 @@ Spring Container는 크게 두가지 유형으로 나뉜다.
 ⚠️ Singleton 개념은 객체 생성 측면에서 자원소모를 효율적으로 하기 위한 디자인패턴이다.
 </div>
   
-- ApplicationContext  
+- ApplicationContext&emsp;<span style="margin-bottom:15px;padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);font-weight:normal;">⚠️ 보통 Spring Container를 부를 때, ApplcationContext를 말한다.</span>  
 : ApplicationContext는 <span style='color:rgb(196,58,26);font-weight:bold'>BeanFactory를 구현</span>하고 있어 <span style="margin-bottom:15px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">BeanFactory의 확장된 버전</span>이다.  
 : **확장된 기능**  
 : `🍕 Environment`: 소스 설정 및 프로퍼티 값을 가져올 수 있다
 : `🍕 MessageSource`: 메세지 설정파일을 모아, 로컬라이징을 통한 맞춤 메세지 제공
 
-![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/EskS7rVcg8.png "Optional title"){: width="500" height="300"}
+![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/NCpRosOKVq.png "Optional title"){: width="500" height="300"}
 
-- `ClassPathXmlApplicationContext`: ClassPath에 지정한 경로에서 xml파일을 읽어 context 정의내용을 load
-- `FileSystemXmlApplicationContext`: FileSystem에 지정한 경로에서 xml 파일을 읽어 context 정의내용을 load
-- `XmlWebApplicationContext`: Web Application에 포함된 xml파일에서 context 정의내용을 load
+-- `AnnotationConfigApplicationContext`  
+ : 특정 클래스 안에 @Bean으로 선언된 메서드를 호출해서 반환된 객체를 Spring Container에 빈으로 등록
+
+`📜 AppConfig.java`
+
+```java
+@Configuration
+public class AppConfig {
+ @Bean
+ public 오리Service a오리Service(오리타입 type) {
+   return new 오리ServiceImpl(a오리Repository(), a비행아이템(type), a헤엄아이템(type));
+ }
+
+ @Bean
+ public 비행아이템 a비행아이템(오리타입 type) {
+   if(type == 오리타입.고무오리) {
+     return new 못나는비행아이템();
+   }
+   return new 날개비행아이템();
+ }
+
+ @Bean
+ public 헤엄아이템 a헤엄아이템(오리타입 type) {
+   if(type == 오리타입.고무오리) {
+     return new 둥둥헤엄아이템();
+   }
+   return new 물갈퀴헤엄아이템();
+ }
+
+ @Bean
+ public 오리Repository a오리Repository() {
+   return new Memory오리Repository();
+ }
+}
+```
+
+<span style="margin-bottom:15px;padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);">⚠️ 사실, Spring Container는 빈을 생성하고, 의존관계를 주입하는 단계가 나누어져 있다.</span>  
+<span style="margin-bottom:15px;padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);">(위의 코드는 생성자를 호출하면서 의존관계 주입도 한번에 처리된다.)</span>
+
+`📜 오리App.java`
+
+```java
+public class 오리App {
+ public static void main(String[] args) {
+
+   // Spring Container를 생성할 때는 구성 정보(AppConfig)를 지정해 줘야한다.
+   ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+   // Spring Container에서 스프링 빈을 찾아 사용한다.
+   // 빈을 가져올 때, getBean(빈이름, 타입)으로 가져올 수 도 있고,
+   // getBean(이름) or getBean(타입)으로만 가져올 수 있다.
+   오리Service a오리Service = ac.getBean("a오리Service", 오리Service.class);
+
+   오리 a오리 = new 오리(1L, 오리타입.흰오리);
+   a오리Service.오리_저장(a오리);
+
+   오리 a흰오리 = a오리Service.오리_가져오기(1L);
+   a오리Service.오리_작동();
+ }
+}
+```
+
+⚠️ `Spring Container`는 `@Bean`이 붙은 `method`명을 <span style='color:rgb(196,58,26);'>스프링 빈의 이름으로 사용</span>한다.
+
+```java
+class ApplicationContextTest {
+  AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+  @Test
+  @DisplayName("애플리케이션 빈 출력하기")
+  void findApplicationBean() {
+    String[] beanDefinitionNames = ac.getBeanDefinitionNames();
+    for(String beanDefinitionName : beanDefinitionNames) {
+      BeanDefinition beanDefinition = ac.getBeanDefinition(beanDefinitionName); // 빈에 대한 메타데이터 정보
+
+      // 내가 애플리케이션 개발을 위해 등록한 빈
+      if(beanDefinition.getRole() == BeanDefinition.ROLE_APPLICATION) {
+        // BeanDefinition.ROLE_INFRASTRUCTURE: 스프링 컨테이너 내부에서 사용하는 빈
+        Object bean = ac.getBean(beanDefinitionName);
+        System.out.println("name= " + beanDefinitionName + " object= " + bean)
+      }
+    }
+  }
+}
+```
+
+<!--
+- `ClassPathXmlApplicationContext`
+  : ClassPath에 지정한 경로에서 xml파일을 읽어 context 정의내용을 load
+- `FileSystemXmlApplicationContext`
+  : FileSystem에 지정한 경로에서 xml 파일을 읽어 context 정의내용을 load
+- `XmlWebApplicationContext`
+  : Web Application에 포함된 xml파일에서 context 정의내용을 load
+-->
 
 ## Spring의 설계 철학
 
