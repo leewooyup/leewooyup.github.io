@@ -1,7 +1,7 @@
 ---
 title: "[Spring] 객체 지향 프로그래밍의 핵심인 다형성과 이를 위한 프레임워크, 스프링"
 date: 2024-01-01 16:52 +0900
-lastmod: 2024-03-10 20:24 +0900
+lastmod: 2024-03-11 20:04 +0900
 categories: Spring
 tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 ---
@@ -17,7 +17,7 @@ tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 애플리케이션을 **객체들의 모임**으로 파악하자  
 각각의 객체는 메세지를 주고 받고 데이터를 처리할 수 있다.  
 각각의 객체를 부품으로 보고,  
-🎯 부품을 <span style='color:rgb(196,58,26);font-weight:bold'>쉽게 갈아 끼울 수 있게</span> 만드는 것이 **객체 지향의 핵심**이자, <span style='color:rgb(196,58,26);font-weight:bold'>다형성</span>이다.
+🎯 부품을 <span style='color:rgb(196,58,26);'>쉽게 갈아 끼울 수 있게</span> 만드는 것이 **객체 지향의 핵심**이자, <span style='color:rgb(196,58,26);'>다형성</span>이다.
 
 ## 다형성(Polymorphism)
 
@@ -32,16 +32,16 @@ tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 
 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#BCD4E6;">다른 것에 영향을 주지 않는다</span>는 것은 내가 변화가 있을 때,  
 그에 따른 **다른 것을 변경할 필요가 없는 것**을 말한다.  
-이런 관계를 만드는 것을 <span style='color:rgb(196,58,26);font-weight:bold'>확장 가능한 설계</span>라고 하며,  
+이런 관계를 만드는 것을 <span style='color:rgb(196,58,26);'>확장 가능한 설계</span>라고 하며,  
 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>결국 규격(인터페이스)를 안정적으로 설계하는 것이 중요하다.
 
 규격을 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">인터페이스</span>라 보고,  
 규격에 맞게 제작된 부품을 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">구현 객체</span>로 본다.
 
 혼자 있는 부품은 의미가 없듯이, **혼자 있는 객체만으로는 의미가 없다.**  
-객체(클라이언트)와 객체(서버)는 <span style='color:rgb(196,58,26);font-weight:bold'>협력 관계</span>를 가진다.  
+객체(클라이언트)와 객체(서버)는 <span style='color:rgb(196,58,26);'>협력 관계</span>를 가진다.  
 이 협력관계에서, 객체(클라이언트)에 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">영향을 주지 않고 객체(서버)의 기능을 변경할 수 있게 만드는 것</span>을  
-🦠<span style='color:rgb(196,58,26);font-weight:bold'>다형성</span>이라 한다.
+🦠<span style='color:rgb(196,58,26);'>다형성</span>이라 한다.
 
 이렇게 하면, 구현객체를 **실행 시점에서 유연하게 변경할 수 있다.**  
 또한, 객체(클라이언트)는 객체(서버)의 내부 구조를 몰라도 되니까 단순해진다.  
@@ -92,7 +92,7 @@ tages: [Polymorphism, Interface, DI, OCP, DIP, Spring, Spring Container]
 
 ![Alt text](https://i.esdrop.com/d/f/OAHra5CzfD/HYLiwFTwia.png "Optional title"){: width="800" height="350"}
 
-`오리.java`
+`📜 오리.java`
 
 ```java
 class 오리 {
@@ -133,7 +133,7 @@ class 오리 {
 }
 ```
 
-`오리타입.java`
+`📜 오리타입.java`
 
 ```java
 public enum 오리타입 {
@@ -154,7 +154,7 @@ public enum 오리타입 {
 }
 ```
 
-`아이템.java`
+`📜 아이템.java`
 
 ```java
 public interface 아이템 {
@@ -163,14 +163,14 @@ public interface 아이템 {
 }
 ```
 
-`비행아이템.java`
+`📜 비행아이템.java`
 
 ```java
 public interface 비행아이템 extends 아이템 {}
 
 ```
 
-`날개비행아이템.java`
+`📜 날개비행아이템.java`
 
 ```java
 public class 날개비행아이템 implements 비행아이템 {
@@ -182,7 +182,7 @@ public class 날개비행아이템 implements 비행아이템 {
 }
 ```
 
-`못나는비행아이템.java`
+`📜 못나는비행아이템.java`
 
 ```java
 public class 못나는비행아이템 implements 비행아이템 {
@@ -194,13 +194,13 @@ public class 못나는비행아이템 implements 비행아이템 {
 }
 ```
 
-`헤엄아이템.java`
+`📜 헤엄아이템.java`
 
 ```java
 public interface 헤엄아이템 extends 아이템 {}
 ```
 
-`물갈퀴헤엄아이템.java`
+`📜 물갈퀴헤엄아이템.java`
 
 ```java
 public class 물갈퀴헤엄아이템 implements 헤엄아이템 {
@@ -212,7 +212,7 @@ public class 물갈퀴헤엄아이템 implements 헤엄아이템 {
 }
 ```
 
-`둥둥헤엄아이템.java`
+`📜 둥둥헤엄아이템.java`
 
 ```java
 public class 둥둥헤엄아이템 implements 헤엄아이템 {
@@ -224,7 +224,7 @@ public class 둥둥헤엄아이템 implements 헤엄아이템 {
 }
 ```
 
-`오리Repository.java`
+`📜 오리Repository.java`
 
 ```java
 public interface 오리Repository {
@@ -235,7 +235,7 @@ public interface 오리Repository {
 }
 ```
 
-`Memory오리Repository.java`
+`📜 Memory오리Repository.java`
 
 ```java
 public class Memory오리Repository implements 오리Repository {
@@ -254,7 +254,7 @@ public class Memory오리Repository implements 오리Repository {
 }
 ```
 
-`오리Service.java`
+`📜 오리Service.java`
 
 ```java
 public interface 오리Service {
@@ -267,7 +267,7 @@ public interface 오리Service {
 }
 ```
 
-`오리ServiceImpl.java`
+`📜 오리ServiceImpl.java`
 
 ```java
 public class 오리ServiceImpl implements 오리Service {
@@ -304,7 +304,7 @@ public class 오리ServiceImpl implements 오리Service {
 }
 ```
 
-`오리공장.java`
+`📜 오리공장.java`
 
 ```java
 public class 오리공장 {
@@ -337,7 +337,7 @@ public class 오리공장 {
 }
 ```
 
-`오리App.java`
+`📜 오리App.java`
 
 ```java
 public class 오리App {
@@ -405,7 +405,7 @@ public class 오리App {
 오리ServiceImpl<span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">(객체, 클라이언트)은 변경하지 않아도 된다.</span> 이는 <span style='color:rgb(196,58,26);font-weight:bold'>OCP</span>를 지킬 수 있게 만든다.
 
 이러한 방식으로, <span style="margin-bottom:15px;padding: 0 3px;border-radius:5px;background-color:#E1FEE5;">다형성을 극대화하고 OCP, DIP를 지켜지도록</span> 만들어 주는 프레임워크가  
-<span style='color:rgb(196,58,26);font-weight:bold'>스프링(Spring)</span>이다.  
+<span style='color:rgb(196,58,26);'>스프링(Spring)</span>이다.  
 스프링은 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>DI와 <span style='color:rgb(196,58,26);font-weight:bold'>\*</span>IoC 컨테이너를 제공함으로써 **의존관계를 외부에서 주입**해  
 <span style="margin-bottom:15px;border-radius:5px;background-color:#ffdce0;">다형성 + OCP + DIP</span>를 지키는 코드를 짜도록 유도한다.
 
@@ -438,12 +438,12 @@ Spring Container는 크게 두가지 유형으로 나뉜다.
 
 <div style="margin-bottom:15px;margin-left:40px;font-size:16px;background-color:rgba(0,0,0,0.03);border-radius:5px;padding:2px;"><span style="font-weight:bold;">📕 Bean 객체를 Singleton으로 만드는 이유</span><br>
 : 매번 클라이언트에서 요청이 올 때마다 서버에서 해당 로직을 맡은 객체를 새로 만든다고 가정했을 때,<br>
-누적되면 자원소모가 크다. (설사 Garbage Collection이 있다하더라도)<br>
+누적되면 자원소모가 크다. (설사 Garbage Collector가 있다하더라도)<br>
 ⚠️ Singleton 개념은 객체 생성 측면에서 자원소모를 효율적으로 하기 위한 디자인패턴이다.
 </div>
   
 - ApplicationContext&emsp;<span style="margin-bottom:15px;padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);font-weight:normal;">⚠️ 보통 Spring Container를 부를 때, ApplcationContext를 말한다.</span>  
-: ApplicationContext는 <span style='color:rgb(196,58,26);font-weight:bold'>BeanFactory를 구현</span>하고 있어 <span style="margin-bottom:15px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">BeanFactory의 확장된 버전</span>이다.  
+: ApplicationContext는 <span style='color:rgb(196,58,26);'>BeanFactory를 구현</span>하고 있어 <span style="margin-bottom:15px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">BeanFactory의 확장된 버전</span>이다.  
 : **확장된 기능**  
 : `🍕 Environment`: 소스 설정 및 프로퍼티 값을 가져올 수 있다
 : `🍕 MessageSource`: 메세지 설정파일을 모아, 로컬라이징을 통한 맞춤 메세지 제공
@@ -535,6 +535,43 @@ class ApplicationContextTest {
 }
 ```
 
+🧀 `getBean(타입)`으로만 조회 시, <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">같은 타입이 둘 이상 있으면 중복오류가 발생한다.</span>
+
+```java
+class ApplicationContextTest {
+  AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
+
+  @Test
+  @DisplayName("타입으로만 조회시, 같은 타입이 둘 이상 이면 중복오류가 발생한다")
+  void findBeanByTypeDuplicate() {
+    assertThrows(NoUniqueBeanDefinitionException.class, () -> ac.getBean(MemberRepository.class));
+  }
+
+  @Test
+  @DisplayName("특정 타입을 모두 출력하기")
+  void findAllBeansByType() {
+    Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class);
+    for(String key : beansOfType.keySet()) {
+      System.out.println("key= " + key + " value= " + beansOfType.get(key));
+    }
+    assertThat(beansOfType.size()).isEqualTo(2);
+  }
+
+  @Configuration
+  static class SameBeanConfig {
+    @Bean
+    public MemberRepository memberRepository1() {
+      return new MemoryMemberRepository();
+    }
+
+    @Bean
+    public MemberRepository memberRepository2() {
+      return new MemoryMemberRepository();
+    }
+  }
+}
+```
+
 <!--
 - `ClassPathXmlApplicationContext`
   : ClassPath에 지정한 경로에서 xml파일을 읽어 context 정의내용을 load
@@ -543,6 +580,61 @@ class ApplicationContextTest {
 - `XmlWebApplicationContext`
   : Web Application에 포함된 xml파일에서 context 정의내용을 load
 -->
+
+## 상속관계에 있는 스프링 빈 조회
+
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(196,58,26);color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;">
+    🍪 부모타입으로 빈을 조회하면 자식 타입도 함께 조회된다.
+</div>
+
+모든 자바 객체의 최고 부모인 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">Object 타입</span>으로 조회하면 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);">모든 스프링 빈을 조회한다.</span>
+
+🧀 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">부모타입으로만</span> 조회시 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;">자식이 둘 이상 있으면 중복 오류가 발생한다.</span>
+
+```java
+class ApplicationContextTest {
+  AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext("TestConfig.class");
+
+  @Test
+  @DisplayName("부모타입으로만 조회시, 자식이 둘 이상 있으면 중복오류가 발생한다")
+  void findBeanByParentTypeDuplicate() {
+    assertThrows(NoUniqueBeanDefinitionException.class,
+                              () -> ac.getBean(DiscountPolicy.class));
+  }
+
+  @Test
+  @DisplayName("부모타입으로 모두 출력")
+  void findAllBeanByParentType() {
+    Map<String, DiscountPolicy> beansOfType = ac.getBeansOfType(DiscountPolicy.class);
+    for(String key : beansOfType.keySet()) {
+      System.out.println("key= " + key + " value= " + beansOfType.get(key));
+    }
+    assertThat(beansOfType.size()).isEqualTo(2);
+  }
+
+  @Test
+  @DisplayName("부모타입으로 모두 출력 - Object")
+  void findAllBeansByObjectType() {
+    Map<String, Object> beansOfType = ac.getBeansOfType(Object.class);
+    for(String key : beansOfType.keySet()) {
+      System.out.println("key= " + key + " value= " + beansOfType.get(key));
+    }
+  }
+
+  @Configuration
+  static class TestConfig {
+    @Bean
+    public DiscountPolicy rateDiscountPolicy() {
+      return new RateDiscountPolicy();
+    }
+
+    @Bean
+    public DiscountPolicy fixDiscountPolicy() {
+      return new FixDiscountPolicy();
+    }
+  }
+}
+```
 
 ## Spring의 설계 철학
 
