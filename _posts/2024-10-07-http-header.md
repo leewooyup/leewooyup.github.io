@@ -175,8 +175,8 @@ tags:
 
 ### 쿠키와 웹스토리지
 
-<div style="margin-bottom:15px;font-size:17px;background-color:#DEDEDE;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🥯 <span style="font-family: Impact,Charcoal,sans-serif;">Cookie &nbsp;/&nbsp; Web Storage</span>
+<div style="margin-bottom:15px;font-size:17px;background-color:#DEDEDE;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;font-weight:bold;">
+    🥯 Cookie &nbsp;/&nbsp; Web Storage
 </div>
 
 웹브라우저 내부에 데이터를 저장해두고,  
@@ -264,8 +264,8 @@ Content-Length: 34012
 
 ### 캐시 유효시간
 
-<div style="margin-bottom:15px;font-size:17px;background-color:#DEDEDE;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🥯 <span style="font-family: Impact,Charcoal,sans-serif;">Cache-Control: max-age &nbsp;/&nbsp; expires</span>
+<div style="margin-bottom:15px;font-size:17px;background-color:#DEDEDE;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;font-weight:bold;">
+    🥯 Cache-Control: max-age &nbsp;/&nbsp; expires
 </div>
 
 둘다 캐시 유효시간을 의미하지만 `max-age`는 초단위로 지정하고,  
