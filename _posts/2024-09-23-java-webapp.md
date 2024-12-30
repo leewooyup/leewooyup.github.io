@@ -12,9 +12,6 @@ tags:
     JVM,
     java byte code,
     JIT compiler,
-    build,
-    gradle,
-    gradlew,
     Contents Root,
     Project,
     Module
@@ -202,91 +199,6 @@ JVM 위에서 하나의 톰캣 인스턴스(서버)가 하나의 프로세스로
 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">서버의 전체적인 부하를 분산하여 응답을 빠르게 하기위해 두 서버를 연동해서 사용한다.</span>
 
 또한, 아파치에서 제공하는 유용한 모듈을 톰캣에서는 사용할 수 없는 부분 등의 이유가 있다.
-
-## 빌드 자동화 도구
-
-<div style="margin-bottom: 15px;font-size:20px;background-color:#FFD24D;color:black;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🐀 빌드 자동화 도구, Gradle
-</div>
-
-<span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">빌드란 실행파일을 만드는 과정</span>을 말한다.  
-<span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:rgba(255, 165, 0, 0.7);">작업한 파일들(소스코드, 라이브러리, 이미지)</span>을 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">출시하기 적합한 형태로 포장</span>하는 일을 말한다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">압축</span> <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">변환</span>  
-결국 빌드란 <span style="padding:1px 5px;margin-right: 3px;border: 1px solid #DEDEDE;border-radius:5px;">✨ 소스코드 파일을 컴파일한 후 여러 개의 모듈을 묶어</span> 실행파일로 만드는 과정이다.  
-빌드되어 나온 결과물을 **`🗿 artifact`**라 한다.
-
-자바 웹 애플리케이션의 경우,  
-`.java`, `.xml`, `resource`, `.jpg` `.jpa`을 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;font-weight:bold;">JVM (java virtual machine)</span>이나 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#462679;font-weight:bold;">🐈 톰캣(tomcat)</span> 같은 WAS가 인식할 수 있도록  
-패키징하는 과정 및 결과물을 말한다.  
-즉, `.java` 파일을 컴파일하여 `.class`로 변환하고  
-`resource`를 `.class`가 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">참조할 수 있는 적절한 위치로 옮기고</span>  
-`META-INF`와 `MANIFEST.MF`들을 하나로 압축하는 과정을 거친다.
-
-그렇다면 <span style="padding:3px 6px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;font-weight:bold;">빌드 자동화 도구</span>란 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">빌드를 포함하여 테스트 및 배포를 자동화하는 도구</span>를 말한다.  
-빌드 자동화 도구는 다음과 같은 작업을 순서대로 수행한다.
-
-```
-(1) 전처리(Preprocessing) - 종속성 다운로드
-(2) 컴파일(Compile) - 소스코드를 바이너리코드로 변환
-(3) 패키징(Packaging)
-(4) 테스트(Testing)
-(5) 배포 (Distribution)
-```
-
-`🐘 gradle`은 `groovy`라는 언어를 기반으로 한 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">오픈소스 형태의 빌드 자동화 도구</span>이다.  
-`groovy`는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;font-weight:bold;">JVM</span>에서 실행되는 스크립트언어이다.  
-`🐘 gradle`은 필요한 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">라이브러리를 땡겨오거나 버전설정 및 빌드된 라이브러리의 라이프사이클 및 의존관계를 관리해주는 역할</span>을 한다.  
-특히 `🪴 spring boot` 프로젝트에서 많이 사용된다.
-
-`🐘 gradle`은 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">캐시를 사용하므로 빌드와 테스트 실행 속도가 빠르다.</span>  
-또한, <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;font-weight:bold;">🏆 가독성</span>이 우수하다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">필요한 부분만 명확하게 기술</span>  
-<span style="padding:1px 5px;margin-right: 3px;border: 1px solid #DEDEDE;border-radius:5px;">✨ gradle 설치 없이</span> `🦣 gradle wrapper`를 이용하여 빌드를 지원한다.  
-<span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;font-weight:bold;">설정 주입 방식(Configuration Injection)</span> <span style='color:rgb(196,58,26);font-weight:bold;'>\*</span>을 사용하므로 재사용에 용이하다.
-
-<div style="margin-bottom:15px;font-size:15px;background-color:rgba(0,0,0,0.03);border-radius:5px;padding:7px;color:#34343c;"><span style="font-weight:bold;">📘 설정 주입 방식(Configuration Injection)</span><br>
-<span style="padding:0 6px;font-size:16px;border-radius:5px;background-color:#DEDEDE;color:#5F5F5F;">플러그인(plugins)</span>, <span style="padding:0 6px;font-size:16px;border-radius:5px;background-color:#DEDEDE;color:#5F5F5F;">의존성(dependencies)</span>, <span style="padding:0 6px;font-size:16px;border-radius:5px;background-color:#DEDEDE;color:#5F5F5F;">task</span> 등의 설정을 빌드 스크립트에 외부로부터 주입하는 방식을 말한다.<br>
-빌드 로직을 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">재사용</span>하거나 다른 프로젝트에서 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">쉽게 적용할 수 있도록 한다.</span><br>
-
-</div>
-
-```groovy
-plugins {
-    // 해당 플러그인이 제공하는 기본 빌드 설정과 태스크가 주입된다
-    id 'java'
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
-}
-// 각 의존성은 gradle이 빌드를 수행할 때, 외부 라이브러리 혹은 모듈을 가져와 사용하도록 구성된다.
-
-```
-
-<div style="margin-bottom:15px;font-size:15px;background-color:#F7F6F3;border-radius:5px;padding:7px;color:#34343c;">
-<span style="font-weight:bold;">🦣 gradlew</span><br>
-<span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#e1d1b8;color:#34343c;">gradle wrapper</span>를 실행하는 스크립트다. <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">명령줄 도구</span>
-<span style='color:rgb(196,58,26);'>프로젝트에 gradle을 설치하지 않고도</span>, gradle을 다운로드 하고<br>
-프로젝트에 지정된 버전의 gradle을 사용하여 빌드할 수 있다.<br>
-프로젝트를 공유하거나 다른 컴퓨터에서 빌드할 때 일관된 결과를 얻을 수 있다.<br>
-⚠️ 🐘 gradle은 로컬시스템에 gradle이 설치되어있지 않은 경우 프로젝트를 빌드할 수 없다.
-</div>
-
-```
-# 빌드 및 실행
-gradlew.bat build
-cd build/libs
-java -jar PROJECT_NAME-0.0.1-SNAPSHOT.jar
-
-gradlew clean build
-# build 폴더를 지우고 다시 만든다
-```
-
-<div style="margin-bottom:15px;font-size:15px;background-color:#F7F6F3;border-radius:5px;padding:7px;color:#34343c;"><span style="font-weight:bold;">🪶 Maven</span><br>
-Apache 라이센스로 배포되는 <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#e1d1b8;color:#34343c;">오픈 소스 형태의 Java전용 빌드 자동화 도구</span>이다.<br>
-필요한 라이브러리를 <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#e1d1b8;color:#34343c;">pom.xml(project object model)</span>에 정의한다.<br>
-해당 파일에는 프로젝트 정보, 빌드 관련 설정, 빌드 환경, pom 연관정보를 담고 있다.<br>
-gradle보다 빌드 속도가 느리며, 멀티 프로젝트에서 특정 설정을 다른 모듈에서 사용하려면 상속을 받아야해서 번거롭다.
-
-</div>
 
 ## IntelliJ 프로젝트 구성
 
