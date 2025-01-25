@@ -1,5 +1,5 @@
 ---
-title: "[Sql튜닝] [oracle] 임시로 생성된 가상테이블 WITH절과 UNION ALL의 조합"
+title: "[Sql튜닝] [oracle][MySql] 임시로 생성된 가상테이블 WITH절과 UNION ALL의 조합"
 date: 2024-09-28 20:39 +0900
 lastmod: 2024-11-27 19:51 +0900
 categories: Sql튜닝
@@ -99,3 +99,72 @@ SELECT * FROM EX2 WHERE EX2.CATEGORY_ID = '3'
 <span style="font-weight:700;font-size:1.03rem;">🍪 JOIN / UNION</span>  
 `JOIN`은 키를 기준으로 테이블을 연결하여, <span style='color:#652DC1;'>컬럼을 확장</span>하여 보여주고  
 `UNION`은 다른 테이블의 <span style='color:#652DC1;'>ROW를 합쳐서</span> 보여준다.
+
+## 예제(MySql): WITH문으로 계층쿼리 작성하기
+
+<div style="margin-bottom:15px;font-size:20px;background-color:rgb(45,204,112);color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
+    ⚔️ 예제(MySql): WITH문으로 계층쿼리 작성하기
+</div>
+
+재귀적인 쿼리를 이용하면, 쿼리의 결과를 반복적으로 조회하고 처리할 수 있다.
+
+```sql
+WITH RECURSIVE cte AS
+(
+    -- FOUNDATION CASE (Non-Recursive 문장) (첫번째 루프에서만 실행)
+    -- 재귀적 프로세스를 시작하기 위해 반환할 초기 데이터 집합 정의
+    SELECT level, name
+      FROM employees
+     WHERE id = 1
+     UNION ALL
+    -- RECURSIVE CASE (Recursive 문장) (읽어올 때마다 행의 위치가 기억)
+    -- FOUNDATION CASE 반환 데이터로부터 실행되며, 각 재귀적 단계에서 결과집합에 새로운 행 추가
+    SELECT cte.level + 1, e.name
+      FROM employees e
+      JOIN cte
+        ON e.parent_id = cte.id
+)
+SELECT *
+  FROM cte;
+```
+
+`WITH RECURSIVE` 구문은 가상 테이블을 생성하면서 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">가상 테이블 자신의 값을 참조</span>하여 값을 결정할 때 사용된다.
+
+---
+
+```sql
+-- 예제(1)
+WITH cte_count(num) AS
+(
+    SELECT 1 AS num
+      FROM DUAL
+     UNION ALL
+    SELECT c.num + 1
+      FROM cte_count c
+     WHERE c.num < 10
+)
+SELECT num
+  FROM cte_count;
+
+-- 예제(2)
+WITH employee_hierarchy(eid, ename, edept) AS
+(
+    SELECT emp_id AS eid
+         , emp_name AS ename
+         , department AS edept
+      FROM employees
+     WHERE emp_name = 'John Doe'
+     UNION ALL
+    SELECT e.emp_id -- 두번째 쿼리부터는 별칭 생략 가능, 단 컬럼의 개수와 데이터 타입이 일치해야한다.
+         , e.emp_name
+         , e.department
+      FROM employees e
+      JOIN employee_hierachy eh
+        ON e.emp_id = eh.manager_id
+     ORDER BY e.emp_name -- ORDER BY절은 마지막 SELECT문에만 사용가능
+)
+SELECT eid, ename, edept
+  FROM employee_hierachy
+```
+
+재귀적인 쿼리를 이용하지 않고도, <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">WITH절</span>만으로도 계층형 쿼리를 구현할 수 있다.
