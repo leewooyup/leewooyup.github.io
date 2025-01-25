@@ -27,24 +27,51 @@ tags:
 </div>
 
 - `Composition API`  
-  `Composition API`는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);font-weight:bold;">Vue2</span>에서는 플러그인 형태로 사용가능했지만,  
-  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;font-weight:bold;">Vue3</span>부터 라이브러리 공식 API로 채택되었다.
+  `Composition API`는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);">Vue2</span>에서는 플러그인 형태로 사용가능했지만,  
+  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;">Vue3</span>부터 라이브러리 공식 API로 채택되었다.
 
 - `root element`  
-  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);font-weight:bold;">Vue2</span>에서는 `root element`가 하나여야 되는 한계점이 있지만,  
-  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;font-weight:bold;">Vue3</span>에서는 `root element`가 여러개여도 상관없다.
+  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);">Vue2</span>에서는 `root element`가 하나여야 되는 한계점이 있지만,  
+  <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;">Vue3</span>에서는 `root element`가 여러개여도 상관없다.
 
-<span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;font-weight:bold;">Vue3</span>로 넘어가면서 라이브러리의 전반적인 로직을 타입스크립트로 재작성했다.
+<span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#6A9487;">Vue3</span>로 넘어가면서 라이브러리의 전반적인 로직을 타입스크립트로 재작성했다.
+
+---
+
+🍪 Vue와 React의 가장 큰 차이점  
+ : Vue는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">Reactivity(반응성)</span> 기반이고 React는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">Immutability(불변성)</span> 기반이다.  
+ 반응성은 객체의 내용이 변화함에 따라 화면의 내용도 바껴져 나가는 시스템을 말하고  
+ Vue3는 이를 <span style="padding:0 3px;border-radius:5px;background-color:#BCD4E6;color:#34343c;">Proxy</span>를 통해 구현한다.  
+ : 반대로, <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">불변성</span>이란 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">메모리 영역에서 값이 변하지 않도록 하는 것을 의미</span>한다.  
+ `state`가 변했을 때, <span style="padding:0 3px;border-radius:5px;background-color:#BCD4E6;color:#34343c;">객체의 참조 주소만을 비교</span>하여 렌더링을 결정한다.  
+ 만약 react가 불변성을 유지하지 않으면, 즉 객체나 배열의 값이 변할 수 있으면 새로운 상태 역시,  
+ <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);">🐖 동일한 참조를 가리키므로 react가 상태변화를 감지하지 못할 수 있다.</span>
 
 ## Composition API
 
 <div style="margin-bottom:15px;font-size:20px;background-color:rgb(35,43,47);color:white;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🐁 Functional-based Composition API
+    🐁 함수기반의 Composition API
 </div>
 
 `Option API`에서 나누어 작성했던 속성을 `Composition API`는 setup 속성에 한번에 작성한다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">Option API와 섞어쓸 수 있다..</span>  
 즉, setup 함수 안에서 변수와 함수를 선언해서 사용할 수 있게 만들었는데, <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">이러한 구조적인 이점은 타입추론을 용이하게 한다.</span>  
 <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">※ 함수나 변수를 정의할 때 타입을 추론하기 쉽다.</span>
+
+🪄 defineComponent와 타입추론  
+ : `defineComponent`는 vue 컴포넌트의 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">더 나은 타입추론 및 실시간 오류검사를 제공한다.</span>  
+ 물론, vue3가 기본적으로 타입스크립트를 지원하기 때문에 없이 사용해도 문제가 발생하지 않을 수 있다.  
+ : 하지만 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:rgb(196,58,26);">🐖 컴포넌트 관계가 복잡해질수록 일부 타입추론이 누락되거나 수동으로 추가해야 하는 경우가 발생할 수 있다.</span>  
+ 즉, `defineComponent`를 사용하면 모든 컴포넌트가 동일한 패턴을 따르게 되어 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">코드의 일관성 🏆</span>이 향상된다.
+
+```vue
+<script lant="ts">
+export default defineComponent({
+  setup() {
+    // ...
+  }
+});
+</script>
+```
 
 setup 함수는 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">Vue 인스턴스가 생성되기 전에 실행된다.</span>  
 즉, Vue 컴포넌트의 반응성 시스템이 완전히 설정되지 않은 상태에서 실행되기 때문에  
@@ -54,13 +81,53 @@ setup 함수 내부에서 `this`는 <span style="margin-bottom:15px;padding:0 3p
 setup 함수를 실행하고 <span style="padding:0 3px;border-radius:5px;background-color:rgba(193,151,210,0.7);color:#34343c;">반환할 때 Vue 인스턴스가 생성된다.</span>
 
 <div style="margin-bottom:15px;font-size:15px;background-color:#F7F6F3;border-radius:5px;padding:7px;color:#34343c;">
-<span style="font-weight:bold;">📕 Options API와 this</span><br>
+<span style="font-weight:bold;">📕 객체 기반의 Options API와 this</span><br>
 Vue 컴포넌트가 마운트되기 전에 Vue는 <span style="padding:0 3px;border-radius:5px;background-color:#ffff9e;color:#624a3d;">컴포넌트 상태를 초기화하고 Vue 인스턴스를 생성</span>한다.<br>
 <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#e1d1b8;color:#34343c;">created 라이프사이클 훅</span>을 호출한 후에 DOM에 마운트된다.<br>
 즉, <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">created 이후부터</span> <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#e1d1b8;color:#34343c;">this</span>를 사용하여 Vue 인스턴스를 참조하여 속성이나 메서드를 사용할 수 있다.
 </div>
 
-또한, `Composition API`를 이용하면 로직을 재사용할 수 있다.
+🪄 Composition API, 동적 ref
+: `Composition API`에서는 this가 사용불가하기 때문에, <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;"> DOM 요소에 직접 접근하기 위해</span> `this.$refs` 역시 사용할 수 없다.  
+때문에, 다른 방법으로 DOM요소에 접근하는데, 이는 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">반응성을 관리하는 변수명</span>와 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">특정 태그의 ref속성값</span>이 같으면  
+해당 컴포넌트가 마운트될 때 <span style="padding:0 3px;border-radius:5px;background-color:#E1FEE5;color:#34343c;">해당 변수에 DOM 요소에 대한 직접적인 참조를 얻을 수 있다.</span>
+: 또한, v-for문을 이용하여 동적으로 생성한 태그에도 같은 방식으로 동적태그에 대한 직접적인 참조를 얻을 수 있는데  
+이 때, 다른게 있다면 반응성을 관리하는 변수를 객체나 배열로 초기화하는 것이다.
+
+```vue
+<template>
+  <div v-for="n in 5" :key="n">
+    <img src="https://picsum.photos/200" ref="imgRefs"
+  </div>
+</template>
+
+<script lant="ts">
+import { Ref, ref } from 'vue';
+
+export default {
+  setup() {
+    const imgRefs = Ref<HTMLImageElement[]> = ref([]);
+  }
+}
+</script>
+```
+
+&nbsp;  
+: 위와 같이 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">동적 태그의 ref속성값</span>과 <span style="padding:3px 6px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">반응성을 관리하는 변수명</span>을 맞춰주면  
+해당 컴포넌트가 마운트될 때, 배열로 초기화한 변수의 각 요소에 아래와 같은 DOM에 대한 직접적이 참조를 얻을 수 있다.
+
+```
+imgRefs: Array[5]
+> 0: <img>
+> 1: <img>
+> 2: <img>
+> 3: <img>
+> 4: <img>
+```
+
+---
+
+또한, <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">🎯 Composition API를 이용하면 로직을 재사용을 극대화할 수 있다.</span>
 
 `🐝 useMessage.js`
 
