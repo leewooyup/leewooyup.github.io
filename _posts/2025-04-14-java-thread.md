@@ -15,7 +15,7 @@ tags:
 
 하나의 CPU 코어로 여러개의 프로그램을 동시에 실행하는 것처럼 보이게 하는 기술을 <span style="padding:3px 6px;font-size:17px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">' 멀티태스킹 '</span>이라 한다.
 
-즉, CPU가 매우 빠르게 여러 개의 프로그램 코드를 번갈아 연산하는 것이다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">⚠️ 프로그램 실행 == CPU 연산</span>  
+즉, CPU가 매우 빠르게 여러 개의 프로그램 코드를 번갈아 연산하는 것이다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#34343c;">⚠️ 프로그램 실행 = CPU 연산</span>  
 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">프로그램의 실행시간을 분할</span>해서, 마치 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">동시에 실행되는 것처럼 보이게 하는 기법</span>을  
 <span style="padding:3px 6px;font-size:17px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;">시분할(Time Sharing) 기법</span>이라 한다.
 
