@@ -1,7 +1,7 @@
 ---
-title: "[CI_CD] 로직을 실행시키는 Github Actions을 이용한 개인 프로젝트 CI/CD 구축 방법"
+title: "[CI_CD] 일련의 로직을 실행시키는 기능인 Github Actions을 이용한 개인 프로젝트 CI/CD 구축 방법"
 date: 2025-05-17 14:45 +0900
-lastmod: 2025-05-19 19:52 +0900
+lastmod: 2025-06-13 15:36 +0900
 categories: CI_CD
 tags:
   [
@@ -22,13 +22,13 @@ tags:
 
 ## 🪵 CI/CD란
 
-<div style="margin-bottom: 15px;font-size:20px;background-color:#FFD24D;color:black;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🪵 테스트 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Test)</span>, 통합 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Merge)</span>, 배포<span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Deploy)</span>의 과정을 자동화하는 것을 말한다
+<div style="margin-bottom:15px;font-size:20px;border-bottom: 2px solid #FFD24D;color:#4A4F5A;padding-right:10px;overflow-x:auto;display:inline-block;white-space:nowrap;">
+	🪵 테스트 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Test)</span>, 통합 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Merge)</span>, 배포<span style="font-family:var(--bs-font-monospace);font-size:.98rem;">(Deploy)</span>의 과정을 자동화하는 것을 말한다
 </div>
 
 새 기능을 구현한 코드가 있을 때마다, 커밋<span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Commit)</span> 하고 브랜치에 머지<span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Merge)</span> 해서,  
 서버(AWS EC2)에서 직접 매번 업데이트된 코드를 다운받아, 빌드 <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Build)</span> 하고 테스트 <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Test)</span> 해서 실행시켜주는 과정이 너무 불편하다.  
-이러한 반복적인 과정을 자동화시키기 위해 CI/CD <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Continuous Integration, Continuous Deployment)</span>를 배운다.
+이러한 반복적인 배포 과정을 자동화시키기 위해 CI/CD <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">(Continuous Integration, Continuous Deployment)</span>를 배운다.
 
 <div style="margin-bottom:15px;font-size:15px;background-color:#F7F7F7;border-radius:5px;padding:15px;color:#34343c;">
 <span style="font-weight:bold;">🎙️ CI/CD 구축 시, 사용하는 툴</span><br>
@@ -42,8 +42,8 @@ tags:
 
 ## 👹 Github Actions란
 
-<div style="margin-bottom:15px;font-size:20px;background-color:rgb(35,43,47);color:white;font-weight:normal;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    👹 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">Github Actions</span>는 로직을 실행시킬 수 있는 일종의 컴퓨터라고 생각하면 된다
+<div style="margin-bottom:15px;font-size:20px;border-bottom: 2px solid rgb(35,43,47);color:#4A4F5A;padding-right:10px;overflow-x:auto;display:inline-block;white-space:nowrap;">
+	👹 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">Github Actions</span>는 로직을 실행시킬 수 있는 일종의 컴퓨터라고 생각하면 된다
 </div>
 
 CI/CD 과정에서 `Github Actions`는 빌드, 테스트, 배포에 대한 로직을 실행시키는 역할을 한다.
@@ -64,7 +64,7 @@ CI/CD 과정에서 `Github Actions`는 빌드, 테스트, 배포에 대한 로�
 <span style="font-size:.98rem;font-weight:normal;padding:3px 5px;color:rgb(196,58,26);">※ 프로젝트 루트에 .github 디렉토리 아래 workflows 디렉토리 안에 yml 파일을 작성해야 한다.</span>  
 <span style="font-size:.98rem;font-weight:normal;padding:3px 5px;color:rgb(196,58,26);">※ yml: 들여쓰기에 따라 인식하는 파일형식</span>
 
-`Github Actions`에서 실행하는 커다란 일련의 로직을 `Workflow`라고 한다. (하나의 단위)  
+`Github Actions`에서 실행하는 일련의 로직을 `Workflow`라고 한다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#F7F7F7;color:#34343c;">(하나의 단위)</span>  
 로직이 실행되는 시점 설정을 `Event`라 한다. `(workflow_dispatch, push, pull_request)`
 
 ```yml
@@ -96,8 +96,8 @@ jobs:
 
       - name: print secrets value
         run: |
-          echo ${{ secrets.MY_NAME }}
-          echo ${{ secrets.MY_HOBBY }}
+          echo {% raw %}${{ secrets.MY_NAME }}{% endraw %}
+          echo {% raw %}${{ secrets.MY_HOBBY }}{% endraw %}
 ```
 
 하나의 `Workflow`는 하나 이상의 `Job`으로 구성된다.  
@@ -105,11 +105,11 @@ jobs:
 또한, 하나의 `Job`은 하나 이상의 `Step`으로 구성되어 있다.  
 <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#F7F7F7;color:#34343c;">(Step은 특정 작업을 수행하는 가장 작은 단위이다.)</span>
 
-`$GITHUB_SHA`에는 현재 커밋의 id 값이 담겨있다. (각 커밋은 고유값을 가지고 있다.)  
+`$GITHUB_SHA`에는 현재 커밋의 id 값이 담겨있다. <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#F7F7F7;color:#34343c;">(각 커밋은 고유값을 가지고 있다.)</span>  
 `$GITHUB_REPOSITORY`에는 현재 <span style="padding:3px 6px;font-size:17px;border-radius:5px;background-color:rgba(0,0,0,0.03);color:#3f596f;"><span style="font-family:var(--bs-font-monospace);font-size:.85rem;">Github Repository</span> 명</span>이 담겨있다.
 
 `Github Actions`에는 시크릿값을 저장할 수 있는 기능이 있다.  
-해당 시크릿값을 조회해도 \*\*\*로 뜬다.
+해당 시크릿값을 조회해도 `***`로 뜬다.
 
 <div style="margin-bottom:15px;font-size:15px;background-color:#F7F6F3;border-radius:5px;padding:15px;color:#34343c;">
 <span style="font-weight:bold;">🍜 시크릿값 저장</span><br>
@@ -121,21 +121,21 @@ jobs:
 
 ## 🗿 개인 프로젝트에서 많이 쓰는 CI/CD 구축 방법
 
-<div style="margin-bottom:15px;font-size:20px;background-color:#462679;color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
+<div style="margin-bottom:15px;font-size:20px;border-bottom: 2px solid #462679;color:#4A4F5A;padding-right:10px;overflow-x:auto;display:inline-block;white-space:nowrap;">
     🗿 개인 프로젝트에서 많이 쓰는 CI/CD 구축 방법
 </div>
 
 🌕 장점
 
-- git pull을 활용해서 프로젝트 코드의 변경된 부분만 업데이트하기 때문에, CI/CD 속도가 빠르다.  
+- git pull을 활용해서 프로젝트 <span style="margin-bottom:15px;padding:0 3px;border-radius:5px;background-color:#ffdce0;color:#34343c;">코드의 변경된 부분만 업데이트하기 때문에, CI/CD 속도가 빠르다.</span>  
   (대부분의 CI/CD 방식은 전체 프로젝트를 통째로 갈아끼우는 방식을 사용한다. 압축해서 전달..)
 - CI/CD 툴로 Github Actions만 사용하기 때문에 인프라 구조가 단순하다.
 
 🌑 단점
 
-- 빌드 작업을 EC2에서 직접 진행하기 때문에 운영하고 있는 서버의 성능에 영향을 미칠 수 있다.  
+- <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#F7F7F7;color:#34343c;">🐖 빌드 작업을 EC2에서 직접 진행하기 때문에 운영하고 있는 서버의 성능에 영향을 미칠 수 있다.</span>  
   <span style='color:rgb(196,58,26);'>(빌드 작업이 생각보다 컴퓨터 자원을 많이 잡아먹는다..)</span>
-- Github 계정정보가 EC2에 저장되기 때문에 협업프로젝트에서는 다른사람에게 노출된다.
+- <span style="padding:0 3px;font-size:16px;border-radius:5px;background-color:#F7F7F7;color:#34343c;">🐖 Github 계정정보가 EC2에 저장되기 때문에 협업프로젝트에서는 협업 개발자에게 노출된다.</span>
 
 따라서, 개인프로젝트에서 CI/CD를 심플하고 빠르게 적용시키고 싶을 때 적용한다.
 
@@ -200,9 +200,9 @@ jobs:
       - name: Connect to EC2 with ssh
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          host: {% raw %}${{ secrets.EC2_HOST }}{% endraw %}
+          username: {% raw %}${{ secrets.EC2_USERNAME }}{% endraw %}
+          key: {% raw %}${{ secrets.EC2_PRIVATE_KEY }}{% endraw %}
           script_stop: true
           script: |
             cd /home/ubuntu/[GITHUB_REPOSITORY_NAME]
@@ -240,8 +240,8 @@ keypair 값은 cmd로 .pem 파일이 있는 폴더로 가서<br>
 
 ## 🍝 .gitignore에 추가된 application.yml
 
-<div style="margin-bottom:15px;font-size:20px;background-color:#9B111E;color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🍝 민감한 값이 작성된 application.yml 파일은 .gitignore에 추가되어 github에 올리지 않는다
+<div style="margin-bottom:15px;font-size:20px;border-bottom: 2px solid #9B111E;color:#4A4F5A;padding-right:10px;overflow-x:auto;display:inline-block;white-space:nowrap;">
+	🍝 민감한 값이 작성된 application.yml 파일은 .gitignore에 추가되어 github에 올리지 않는다
 </div>
 
 `AWS EC2`에서 git pull을 당겨도 `application.yml` 파일이 당연히 없다.  
@@ -265,11 +265,11 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         # 아래 script 안에서 환경변수를 사용하고 싶다면 먼저 선언
         env:
-          APPLICATION_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+          APPLICATION_PROPERTIES: {% raw %}${{ secrets.APPLICATION_PROPERTIES }}{% endraw %}
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          host: {% raw %}${{ secrets.EC2_HOST }}{% endraw %}
+          username: {% raw %}${{ secrets.EC2_USERNAME }}{% endraw %}
+          key: {% raw %}${{ secrets.EC2_PRIVATE_KEY }}{% endraw %}
           # 위에서 선언한 변수 중 어떤 변수를 쓸지 선택
           envs: APPLICATION_PROPERTIES
           script_stop: true
@@ -291,12 +291,12 @@ jobs:
 +   env:
 +     FOO: "BAR"
 +     BAR: "FOO"
-+     SHA: ${{ github.sha }}
++     SHA: {% raw %}${{ github.sha }}{% endraw %}
     with:
-      host: ${{ secrets.HOST }}
-      username: ${{ secrets.USERNAME }}
-      key: ${{ secrets.KEY }}
-      port: ${{ secrets.PORT }}
+      host: {% raw %}${{ secrets.HOST }}{% endraw %}
+      username: {% raw %}${{ secrets.USERNAME }}{% endraw %}
+      key: {% raw %}${{ secrets.KEY }}{% endraw %}
+      port: {% raw %}${{ secrets.PORT }}{% endraw %}
 +     envs: FOO,BAR,SHA
       script: |
         echo "I am $FOO"
@@ -326,14 +326,14 @@ jobs:
 
 ## 🔌 테스트 코드와 배포
 
-<div style="margin-bottom:15px;font-size:20px;background-color:#336666;color:white;border-top-left-radius:5px;border-top-right-radius:5px;padding:2px;overflow-x:auto;white-space:nowrap;">
-    🔌 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">./gradlew clean build</span> 명령에 테스트까지 포함되어 있다
+<div style="margin-bottom:15px;font-size:20px;border-bottom: 2px solid #336666;color:#4A4F5A;padding-right:10px;overflow-x:auto;display:inline-block;white-space:nowrap;">
+	🔌 <span style="font-family:var(--bs-font-monospace);font-size:.98rem;">./gradlew clean build</span> 명령에 테스트까지 포함되어 있다
 </div>
 
 `🌱 start.spring.io`에서 SpringBoot Application을 생성하면,  
 `📂 src > 📂 test > 📂 java > 📂 [PACKAGE_NAME]` 해당 경로에  
 `☕ [APPLICATION_NAME]ApplicationTests.java` 파일이 기본적으로 생성되는데,  
-이 파일 내에 있는 테스트 코드를 일부로 터뜨렸을 때, <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">Github Actions</span>의 로직 중 `./gradlew clean build` 명령에서 빌드 오류를 뱉고 해당 명령어에서 배포를 중단한다.
+이 파일 내에 있는 테스트 코드를 일부러 터뜨렸을 때, <span style="font-family:var(--bs-font-monospace);font-size:.85rem;">Github Actions</span>에 작성한 로직 중 `./gradlew clean build` 명령에서 빌드 오류를 뱉고 해당 명령어에서 배포를 중단한다.
 
 ```java
 @SpringBootTest
